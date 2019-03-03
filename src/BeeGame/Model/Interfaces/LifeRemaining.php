@@ -11,4 +11,11 @@ interface LifeRemaining extends IntegerValueObject
      * @return void
      */
     public function reduce(HitImpact $hitImpact): void;
+
+    /**
+     * @param LifeRemaining $lifeRemaining
+     *
+     * @return LifeRemaining
+     */
+    public function add(LifeRemaining $lifeRemaining): LifeRemaining;
 }

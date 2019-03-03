@@ -6,34 +6,25 @@ namespace App\BeeGame\Model;
 use App\BeeGame\Model\Interfaces\HitImpact;
 use App\BeeGame\Model\Interfaces\LifeRemaining as LifeRemainingInterface;
 
-final class LifeRemaining implements LifeRemainingInterface
+final class LifeRemaining extends IntegerValueObject implements LifeRemainingInterface
 {
-    /**
-     * @var int
-     */
-    private $lifeRemaining;
-
-    /**
-     * @param int $lifeRemaining
-     */
-    public function __construct(int $lifeRemaining)
-    {
-        $this->lifeRemaining = $lifeRemaining;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function toInt(): int
-    {
-        return $this->lifeRemaining;
-    }
-
     /**
      * {@inheritdoc}
      */
     public function reduce(HitImpact $hitImpact): void
     {
-        $this->lifeRemaining-= $hitImpact->toInt();
+        $this->value-= $hitImpact->toInt();
+    }
+
+    /**
+     * @param LifeRemainingInterface $lifeRemaining
+     *
+     * @return LifeRemainingInterface
+     */
+    public function add(LifeRemainingInterface $lifeRemaining): LifeRemainingInterface
+    {
+        $newLifeRemainingValue = $this->value + $lifeRemaining->toInt();
+
+        return new static($newLifeRemainingValue);
     }
 }

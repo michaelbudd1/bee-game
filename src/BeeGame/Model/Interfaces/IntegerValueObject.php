@@ -9,4 +9,14 @@ interface IntegerValueObject
      * @return int
      */
     public function toInt(): int;
+
+    /**
+     * @return bool
+     */
+    public function isGreaterThanZero(): bool;
+
+    /**
+     * @return bool
+     */
+    public function isLessThanOrEqualToZero(): bool;
 }
