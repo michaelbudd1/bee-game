@@ -14,4 +14,32 @@ interface BeeCollection
      * @return bool
      */
     public function queenIsDead(): bool;
+
+    /**
+     * @return Bee
+     */
+    public function randomBee(): Bee;
+
+    /**
+     * @param Bee $bee
+     */
+    public function updateBee(Bee $bee): void;
+
+    /**
+     * @param string $type
+     * @param int    $amount
+     *
+     * @return BeeCollection
+     */
+    public static function createSwarm(string $type, int $amount): BeeCollection;
+
+    /**
+     * @return void
+     */
+    public function allDieInstantly(): BeeCollection;
+
+    /**
+     * @return Bee
+     */
+    public function queen(): Bee;
 }

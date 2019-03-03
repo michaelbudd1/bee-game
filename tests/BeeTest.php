@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Tests;
 
+use App\BeeGame\Model\BeeId;
 use App\BeeGame\Model\DroneBee;
 use App\BeeGame\Model\LifeRemaining;
 use App\BeeGame\Model\QueenBee;
@@ -18,7 +19,7 @@ final class BeeTest extends TestCase
      */
     public function testQueenBeeLifespanIsCorrect(): void
     {
-        $queenBee = new QueenBee();
+        $queenBee = new QueenBee(new BeeId('queen_1'));
 
         $this->assertEquals(
             new LifeRemaining(100),
@@ -33,7 +34,7 @@ final class BeeTest extends TestCase
      */
     public function testWorkerBeeLifespanIsCorrect(): void
     {
-        $workerBee = new WorkerBee();
+        $workerBee = new WorkerBee(new BeeId('worker_1'));
 
         $this->assertEquals(
             new LifeRemaining(75),
@@ -48,7 +49,7 @@ final class BeeTest extends TestCase
      */
     public function testDroneBeeLifespanIsCorrect(): void
     {
-        $droneBee = new DroneBee();
+        $droneBee = new DroneBee(new BeeId('drone_1'));
 
         $this->assertEquals(
             new LifeRemaining(50),
@@ -64,7 +65,7 @@ final class BeeTest extends TestCase
      */
     public function testHitAgainstQueenBeeReducedLifeRemaining(): void
     {
-        $queenBee = new QueenBee();
+        $queenBee = new QueenBee(new BeeId('queen_1'));
 
         $queenBee->applyHit();
         $queenBee->applyHit();
@@ -82,7 +83,7 @@ final class BeeTest extends TestCase
      */
     public function testHitAgainstWorkerBeeReducedLifeRemaining(): void
     {
-        $workerBee = new WorkerBee();
+        $workerBee = new WorkerBee(new BeeId('worker_1'));
 
         $workerBee->applyHit();
         $workerBee->applyHit();
@@ -100,7 +101,7 @@ final class BeeTest extends TestCase
      */
     public function testHitAgainstDroneBeeReducedLifeRemaining(): void
     {
-        $droneBee = new DroneBee();
+        $droneBee = new DroneBee(new BeeId('drone_1'));
 
         $droneBee->applyHit();
         $droneBee->applyHit();

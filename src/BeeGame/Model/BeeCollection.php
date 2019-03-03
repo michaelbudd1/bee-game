@@ -11,7 +11,7 @@ use Tightenco\Collect\Support\Collection;
 final class BeeCollection extends Collection implements BeeCollectionInterface
 {
     /**
-     * @return bool
+     * {@inheritdoc}
      */
     public function beesAreAllDead(): bool
     {
@@ -24,10 +24,74 @@ final class BeeCollection extends Collection implements BeeCollectionInterface
     }
 
     /**
-     * @return bool
+     * {@inheritdoc}
      */
     public function queenIsDead(): bool
     {
         // TODO: Implement queenIsDead() method.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function randomBee(): Bee
+    {
+        return $this->random();
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @throws \ReflectionException
+     */
+    public static function createSwarm(string $type, int $amount): BeeCollectionInterface
+    {
+        $beeCollection = BeeCollection::make();
+
+        for ($i = 0; $i < $amount; $i++) {
+            $reflectionClass = new \ReflectionClass($type);
+
+            $beeId = new BeeId(
+                sprintf('%s_%s',
+                    $reflectionClass->getShortName(),
+                    $i
+                )
+            );
+
+            /** @var Bee $bee */
+            $bee = new $type($beeId);
+
+            $beeCollection->put($bee->beeId()->toString(), $bee);
+        }
+
+        return $beeCollection;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function updateBee(Bee $bee): void
+    {
+        $this->put($bee->beeId()->toString(), $bee);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function allDieInstantly(): BeeCollectionInterface
+    {
+        return $this->map(function (Bee $bee) {
+           return $bee->instantlyDie();
+        });
+    }
+
+    /**
+     * @return Bee
+     */
+    public function queen(): Bee
+    {
+        return $this->filter(function (Bee $bee) {
+            return $bee->isTheQueen();
+        })->first();
     }
 }

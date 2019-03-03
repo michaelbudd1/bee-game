@@ -3,15 +3,23 @@ declare(strict_types=1);
 
 namespace App\BeeGame\Model;
 
+use App\BeeGame\Model\Interfaces\BeeId;
+
 final class DroneBee extends Bee
 {
-    private const LIFESPAN = 50;
+    public const TYPE = 'Drone';
+
+    private const LIFESPAN = 10; //50;
 
     private const HIT_IMPACT = 12;
 
-    public function __construct()
+    /**
+     * @param BeeId $beeId
+     */
+    public function __construct(BeeId $beeId)
     {
         parent::__construct(
+            $beeId,
             new LifeRemaining(static::LIFESPAN),
             new HitImpact(static::HIT_IMPACT)
         );

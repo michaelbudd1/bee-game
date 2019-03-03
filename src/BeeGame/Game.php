@@ -5,6 +5,8 @@ namespace App\BeeGame;
 
 use App\BeeGame\Interfaces\Game as GameInterface;
 use App\BeeGame\Model\Interfaces\BeeCollection;
+use App\BeeGame\Model\Interfaces\TurnSummary as TurnSummaryInterface;
+use App\BeeGame\Model\TurnSummary;
 
 final class Game implements GameInterface
 {
@@ -12,6 +14,11 @@ final class Game implements GameInterface
      * @var BeeCollection
      */
     private $bees;
+
+    /**
+     * @var int
+     */
+    private $hitsRequiredToKillHive = 1;
 
     /**
      * @param BeeCollection $bees
@@ -22,12 +29,38 @@ final class Game implements GameInterface
     }
 
     /**
-     * @return void
+     * {@inheritdoc}
      */
-    public function start(): void
+    public function performHit(): TurnSummaryInterface
     {
-        while (true) {
-            dd($this->bees->beesAreAllDead());
+        $this->hitsRequiredToKillHive++;
+
+        $randomBee = $this->bees->randomBee();
+
+        $randomBee = $randomBee->applyHit();
+
+        $this->bees->updateBee($randomBee);
+
+        if ($this->bees->queen()->isDead()) {
+            $this->bees = $this->bees->allDieInstantly();
         }
+
+        return new TurnSummary($randomBee);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function hitsRequiredToKillHive(): int
+    {
+        return $this->hitsRequiredToKillHive;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function bees(): BeeCollection
+    {
+        return $this->bees;
     }
 }

@@ -3,15 +3,23 @@ declare(strict_types=1);
 
 namespace App\BeeGame\Model;
 
+use App\BeeGame\Model\Interfaces\BeeId;
+
 final class QueenBee extends Bee
 {
-    private const LIFESPAN = 100;
+    public const TYPE = 'Queen';
+
+    private const LIFESPAN = 7; //100;
 
     private const HIT_IMPACT = 8;
 
-    public function __construct()
+    /**
+     * @param BeeId $beeId
+     */
+    public function __construct(BeeId $beeId)
     {
         parent::__construct(
+            $beeId,
             new LifeRemaining(static::LIFESPAN),
             new HitImpact(static::HIT_IMPACT)
         );
