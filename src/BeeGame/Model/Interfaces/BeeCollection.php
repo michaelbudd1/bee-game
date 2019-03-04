@@ -11,11 +11,6 @@ interface BeeCollection
     public function beesAreAllDead(): bool;
 
     /**
-     * @return bool
-     */
-    public function queenIsDead(): bool;
-
-    /**
      * @return Bee
      */
     public function randomBee(): Bee;

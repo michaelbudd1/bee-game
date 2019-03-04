@@ -26,14 +26,6 @@ final class BeeCollection extends Collection implements BeeCollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function queenIsDead(): bool
-    {
-        // TODO: Implement queenIsDead() method.
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function randomBee(): Bee
     {
         return $this->random();
