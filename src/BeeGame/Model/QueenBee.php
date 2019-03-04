@@ -9,7 +9,7 @@ final class QueenBee extends Bee
 {
     public const TYPE = 'Queen';
 
-    private const LIFESPAN = 7; //100;
+    private const LIFESPAN = 100;
 
     private const HIT_IMPACT = 8;
 

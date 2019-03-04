@@ -9,7 +9,7 @@ final class DroneBee extends Bee
 {
     public const TYPE = 'Drone';
 
-    private const LIFESPAN = 10; //50;
+    private const LIFESPAN = 50;
 
     private const HIT_IMPACT = 12;
 

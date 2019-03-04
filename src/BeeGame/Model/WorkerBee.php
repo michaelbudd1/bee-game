@@ -9,7 +9,7 @@ final class WorkerBee extends Bee
 {
     public const TYPE = 'Worker';
 
-    private const LIFESPAN = 10; //75;
+    private const LIFESPAN = 75;
 
     private const HIT_IMPACT = 10;
 
