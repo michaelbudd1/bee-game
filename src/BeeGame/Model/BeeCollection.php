@@ -52,7 +52,8 @@ final class BeeCollection extends Collection implements BeeCollectionInterface
             $reflectionClass = new \ReflectionClass($type);
 
             $beeId = new BeeId(
-                sprintf('%s_%s',
+                sprintf(
+                    '%s_%s',
                     $reflectionClass->getShortName(),
                     $i
                 )
@@ -81,7 +82,7 @@ final class BeeCollection extends Collection implements BeeCollectionInterface
     public function allDieInstantly(): BeeCollectionInterface
     {
         return $this->map(function (Bee $bee) {
-           return $bee->instantlyDie();
+            return $bee->instantlyDie();
         });
     }
 
